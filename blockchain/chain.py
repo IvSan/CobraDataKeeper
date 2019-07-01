@@ -7,39 +7,32 @@ from blockchain.block import Block
 class Chain:
     DIFFICULTY = 20
     TARGET = 2 ** (256 - DIFFICULTY)
-    MAX_NONCE = 2 ** 32
 
     def __init__(self):
         self.current_data = []
         self.chain = []
 
     def add_block(self):
-        block = Block(len(self.chain),
-                      self.chain[-1].hash() if self.chain else sha256(str(uuid4()).encode()).hexdigest(),
-                      self.find_proof())
+        index = len(self.chain)
+        previous_block_hash = self.chain[-1].hash() if self.chain else 0
+        proof = Chain.find_proof(self.chain[-1]) if self.chain else 0
+
+        block = Block(index, previous_block_hash, proof)
         self.chain.append(block)
 
-    def find_proof(self):
-        proof = 0
-
-        if not self.chain:
-            return proof
-
-        last_block = self.chain[-1]
-
-        for n in range(Chain.MAX_NONCE):
+    @staticmethod
+    def find_proof(last_block):
+        while True:
+            proof = str(uuid4())
             hash_to_check = sha256()
-            hash_to_check.update(last_block.hash().encode() + str(proof).encode())
+            hash_to_check.update(last_block.hash().encode() + proof.encode())
             if int(hash_to_check.hexdigest(), 16) <= Chain.TARGET:
                 return proof
-            else:
-                proof += 1
-        return '9999'
 
     def __str__(self):
         result = ''
         for item in self.chain:
-            result += str(item)
+            result += '\n\n' + str(item)
         return result
 
 

@@ -29,7 +29,8 @@ class Block:
         return "Block index: " + str(self.index) + \
                "\nBlock date: " + str(self.time) + \
                "\nBlock data: " + str(self.data) + \
-               "\nCurrent block hash: " + str(self.hash()) + \
                "\nPrevious block hash: " + str(self.previous_hash) + \
                "\nProof: " + str(self.proof) + \
-               "\n--------------\n"
+               "\n-  -  -  -  -  -" + \
+               "\nCurrent block hash: " + str(self.hash()) + \
+               "\n"
