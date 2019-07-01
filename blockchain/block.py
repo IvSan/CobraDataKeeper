@@ -26,11 +26,10 @@ class Block:
         return h.hexdigest()
 
     def __str__(self):
-        return "Block index: " + str(self.index) + \
-               "\nBlock date: " + str(self.time) + \
-               "\nBlock data: " + str(self.data) + \
-               "\nPrevious block hash: " + str(self.previous_hash) + \
-               "\nProof: " + str(self.proof) + \
-               "\n-  -  -  -  -  -" + \
-               "\nCurrent block hash: " + str(self.hash()) + \
-               "\n"
+        return 'Block index: ' + str(self.index) + \
+               '\nBlock date: ' + str(self.time) + \
+               '\nBlock data: [' + ' '.join(str(d) for d in self.data) + ']' + \
+               '\nPrevious block hash: ' + str(self.previous_hash) + \
+               '\nProof: ' + str(self.proof) + \
+               '\nCurrent block hash: ' + str(self.hash()) + \
+               '\n'

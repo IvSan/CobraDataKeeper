@@ -2,6 +2,7 @@ from hashlib import sha256
 from uuid import uuid4
 
 from blockchain.block import Block
+from blockchain.note import Note
 
 
 class Chain:
@@ -12,7 +13,6 @@ class Chain:
         self.current_data = []
         genesis = Block(0, 0, 0)
         self.chain = [genesis]
-        print(genesis, 'Genesis\n')
 
     def add_block(self):
         index = len(self.chain)
@@ -21,8 +21,8 @@ class Chain:
 
         block = Block(index, previous_block_hash, proof)
         self.chain.append(block)
-        print(block,
-              'Work amount: ' + str(tries) + '\n\n')
+        print(f'Block has been closed with work amount of: {str(tries)}')
+        print(self.chain[-2], '\n\n')
 
     @staticmethod
     def find_proof(last_block):
@@ -35,6 +35,9 @@ class Chain:
             if int(hash_to_check.hexdigest(), 16) <= Chain.TARGET:
                 return proof, tries
 
+    def store_data(self, data):
+        self.chain[-1].store_data(data)
+
     def __str__(self):
         result = ''
         for item in self.chain:
@@ -44,6 +47,9 @@ class Chain:
 
 chain = Chain()
 chain.add_block()
+chain.store_data(Note('ab'))
 chain.add_block()
+chain.store_data(Note(45))
 chain.add_block()
-# print(chain)
+chain.store_data(Note([]))
+print(chain)
