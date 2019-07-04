@@ -1,3 +1,4 @@
+import json
 from hashlib import sha256
 from uuid import uuid4
 
@@ -5,7 +6,7 @@ from blockchain.block import Block
 
 
 class Chain:
-    DIFFICULTY = 20
+    DIFFICULTY = 10
     TARGET = 2 ** (256 - DIFFICULTY)
 
     def __init__(self):
@@ -42,3 +43,6 @@ class Chain:
         for item in self.chain:
             result += '\n\n' + str(item)
         return result
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
