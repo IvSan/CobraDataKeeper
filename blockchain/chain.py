@@ -2,7 +2,6 @@ from hashlib import sha256
 from uuid import uuid4
 
 from blockchain.block import Block
-from blockchain.note import Note
 
 
 class Chain:
@@ -43,13 +42,3 @@ class Chain:
         for item in self.chain:
             result += '\n\n' + str(item)
         return result
-
-
-chain = Chain()
-chain.add_block()
-chain.store_data(Note('ab'))
-chain.add_block()
-chain.store_data(Note(45))
-chain.add_block()
-chain.store_data(Note([]))
-print(chain)
