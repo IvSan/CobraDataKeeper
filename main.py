@@ -1,3 +1,4 @@
 from network.peer import Peer
 
-peer = Peer()
+if __name__ == '__main__':
+    peer = Peer()

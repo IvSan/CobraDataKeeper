@@ -11,10 +11,10 @@ class Block:
         self.previous_hash = previous_hash
         self.proof = proof
 
-    def store_data(self, data):
+    def store_data(self, data) -> None:
         self.data.append(data)
 
-    def hash(self):
+    def hash(self) -> str:
         h = sha256()
         h.update(
             str(self.index).encode('utf-8') +
@@ -25,7 +25,7 @@ class Block:
         )
         return h.hexdigest()
 
-    def __str__(self):
+    def __repr__(self) -> str:
         return 'Block index: ' + str(self.index) + \
                '\nBlock date: ' + str(self.time) + \
                '\nBlock data: [' + ' '.join(str(d) for d in self.data) + ']' + \

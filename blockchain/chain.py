@@ -14,7 +14,7 @@ class Chain:
         genesis = Block(0, 0, 0)
         self.chain = [genesis]
 
-    def add_block(self):
+    def add_block(self) -> None:
         index = len(self.chain)
         previous_block_hash = self.chain[-1].hash()
         proof, tries = Chain.find_proof(self.chain[-1])
@@ -25,7 +25,7 @@ class Chain:
         print(self.chain[-2], '\n\n')
 
     @staticmethod
-    def find_proof(last_block):
+    def find_proof(last_block) -> (str, int):
         tries = 0
         while True:
             tries += 1
@@ -35,10 +35,10 @@ class Chain:
             if int(hash_to_check.hexdigest(), 16) <= Chain.TARGET:
                 return proof, tries
 
-    def store_data(self, data):
+    def store_data(self, data) -> None:
         self.chain[-1].store_data(data)
 
-    def __str__(self):
+    def __repr__(self) -> str:
         result = ''
         for item in self.chain:
             result += '\n\n' + str(item)

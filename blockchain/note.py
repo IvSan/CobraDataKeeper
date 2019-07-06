@@ -7,5 +7,8 @@ class Note:
         self.time = time()
         self.data = data
 
+    def __repr__(self) -> str:
+        return super().__repr__()
+
     def __str__(self) -> str:
         return str(self.data)

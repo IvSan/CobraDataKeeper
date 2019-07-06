@@ -32,8 +32,10 @@ class Peer:
                 with conn:
                     print('Connected by', addr)
                     while True:
-                        data = conn.recv(1024)
-                        if not data:
+                        data_bytes = conn.recv(1024)
+                        if not data_bytes:
                             break
-                        print('Received: ', data.decode())
-                        conn.sendall(self.chain.to_json().encode())
+                        data = data_bytes.decode()
+
+                        if data == 'chain':
+                            conn.sendall(self.chain.to_json().encode())
