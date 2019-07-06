@@ -1,4 +1,6 @@
+import random
 import socket
+import string
 import threading
 import time
 
@@ -21,6 +23,7 @@ class Peer:
     def keep_chain(self):
         while True:
             self.chain.add_block()
+            self.chain.store_data(random.choice(string.ascii_letters))
             time.sleep(3)
 
     def keep_listening(self):

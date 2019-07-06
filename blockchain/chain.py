@@ -9,10 +9,16 @@ class Chain:
     DIFFICULTY = 10
     TARGET = 2 ** (256 - DIFFICULTY)
 
-    def __init__(self):
-        self.current_data = []
-        genesis = Block(0, 0, 0)
-        self.chain = [genesis]
+    def __init__(self, json_data=None):
+        if json_data:
+            deserialized = json.loads(json_data)
+            self.chain = [0]
+            for block_data in deserialized['chain']:
+                self.chain.append(Block(json_data=block_data))
+        else:
+            self.current_data = []
+            genesis = Block(0, 0, 0)
+            self.chain = [genesis]
 
     def add_block(self) -> None:
         index = len(self.chain)

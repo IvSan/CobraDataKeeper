@@ -4,12 +4,19 @@ from time import time
 
 class Block:
 
-    def __init__(self, index, previous_hash, proof):
-        self.index = index
-        self.time = time()
-        self.data = []
-        self.previous_hash = previous_hash
-        self.proof = proof
+    def __init__(self, index=None, previous_hash=None, proof=None, json_data=None):
+        if not json_data:
+            self.index = index
+            self.time = time()
+            self.data = []
+            self.previous_hash = previous_hash
+            self.proof = proof
+        else:
+            self.index = json_data['index']
+            self.time = json_data['time']
+            self.data = json_data['data']
+            self.previous_hash = json_data['previous_hash']
+            self.proof = json_data['proof']
 
     def store_data(self, data) -> None:
         self.data.append(data)
