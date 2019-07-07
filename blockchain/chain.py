@@ -12,7 +12,7 @@ class Chain:
     def __init__(self, json_data=None):
         if json_data:
             deserialized = json.loads(json_data)
-            self.chain = [0]
+            self.chain = []
             for block_data in deserialized['chain']:
                 self.chain.append(Block(json_data=block_data))
         else:
