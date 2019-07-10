@@ -28,7 +28,7 @@ class Chain:
         block = Block(index, previous_block_hash, proof)
         self.chain.append(block)
         print(f'Block has been closed with work amount of: {str(tries)}')
-        print(self.chain[-2], '\n\n')
+        print(self.chain[-2])
 
     @staticmethod
     def find_proof(last_block) -> (str, int):
@@ -47,7 +47,7 @@ class Chain:
     def __repr__(self) -> str:
         result = ''
         for item in self.chain:
-            result += '\n\n' + str(item)
+            result += '\n' + str(item)
         return result
 
     def to_json(self):
