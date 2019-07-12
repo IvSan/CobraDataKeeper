@@ -32,7 +32,6 @@ class Peer:
         while True:
             self.chain.add_block()
             self.chain.store_data(random.choice(string.ascii_letters))
-            time.sleep(10)
 
     def keep_listening(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

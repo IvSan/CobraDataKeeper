@@ -21,6 +21,7 @@ def request(command: str) -> str:
 
 
 chain = Chain(json_data=request('chain'))
+chain.validate()
 print('Received:', chain)
 
 peers = []

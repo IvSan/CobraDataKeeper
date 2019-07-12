@@ -6,7 +6,7 @@ from blockchain.block import Block
 
 
 class Chain:
-    DIFFICULTY = 10
+    DIFFICULTY = 30
     TARGET = 2 ** (256 - DIFFICULTY)
 
     def __init__(self, json_data=None):
@@ -27,6 +27,9 @@ class Chain:
 
         block = Block(index, previous_block_hash, proof)
         self.chain.append(block)
+
+        if not self.validate():
+            raise Exception("Invalid chain")
         print(f'Block has been closed with work amount of: {str(tries)}')
         print(self.chain[-2])
 
@@ -40,6 +43,14 @@ class Chain:
             hash_to_check.update(last_block.hash().encode() + proof.encode())
             if int(hash_to_check.hexdigest(), 16) <= Chain.TARGET:
                 return proof, tries
+
+    def validate(self) -> bool:
+        for i, block in enumerate(self.chain[:1]):
+            hash_to_check = sha256()
+            hash_to_check.update(block.hash().encode() + self.chain[i + 1].proof.encode())
+            if int(hash_to_check.hexdigest(), 16) > Chain.TARGET:
+                return False
+        return True
 
     def store_data(self, data) -> None:
         self.chain[-1].store_data(data)
