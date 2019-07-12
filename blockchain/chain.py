@@ -6,7 +6,7 @@ from blockchain.block import Block
 
 
 class Chain:
-    DIFFICULTY = 30
+    DIFFICULTY = 22
     TARGET = 2 ** (256 - DIFFICULTY)
 
     def __init__(self, json_data=None):

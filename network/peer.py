@@ -1,8 +1,6 @@
 import json
-import random
 import sched
 import socket
-import string
 import threading
 import time
 
@@ -11,7 +9,6 @@ from network.address import Address
 
 
 class Peer:
-    HOST = '127.0.0.1'
     PORT = 65000
 
     def __init__(self):
@@ -31,11 +28,10 @@ class Peer:
     def keep_chain(self):
         while True:
             self.chain.add_block()
-            self.chain.store_data(random.choice(string.ascii_letters))
 
     def keep_listening(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind((Peer.HOST, Peer.PORT))
+            s.bind(('', Peer.PORT))
             s.listen()
             while True:
                 conn, addr = s.accept()
