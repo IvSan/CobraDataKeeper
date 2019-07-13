@@ -54,7 +54,7 @@ class Peer:
                     peer_address = Address(addr[0], Peer.PORT)
 
                     while True:
-                        data_bytes = conn.recv(9999999999)
+                        data_bytes = conn.recv(999999999)
                         if not data_bytes:
                             break
                         data = data_bytes.decode()
