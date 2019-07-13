@@ -36,7 +36,7 @@ class Peer:
             while True:
                 conn, addr = s.accept()
                 with conn:
-                    peer_address = Address(addr[0], addr[1])
+                    peer_address = Address(addr[0], Peer.PORT)
 
                     while True:
                         data_bytes = conn.recv(1024)
