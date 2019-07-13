@@ -70,8 +70,10 @@ class Peer:
                         elif data.startswith('newBlock'):
                             chain = Chain(json_data=data[8:])
                             if chain.validate():
-                                chain.chain[-1:].data.extend(self.chain.chain[-1:].data)
+                                chain.chain[-1].data.extend(self.chain.chain[-1].data)
                                 self.chain = chain
+                            print('Block has been received from network')
+                            print(self.chain.chain[-1])
 
                         print('Connected by', peer_address)
                         if peer_address in self.known_peers:
