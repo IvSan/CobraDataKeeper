@@ -46,6 +46,8 @@ class Chain:
     def validate(self) -> bool:
         for i, block in enumerate(self.chain[:1]):
             hash_to_check = sha256()
+            if len(self.chain) < 2:
+                return True
             hash_to_check.update(block.hash().encode() + self.chain[i + 1].proof.encode())
             if int(hash_to_check.hexdigest(), 16) > Chain.TARGET:
                 return False

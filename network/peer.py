@@ -54,7 +54,7 @@ class Peer:
                     peer_address = Address(addr[0], Peer.PORT)
 
                     while True:
-                        data_bytes = conn.recv(1024)
+                        data_bytes = conn.recv(9999999999)
                         if not data_bytes:
                             break
                         data = data_bytes.decode()
@@ -73,7 +73,7 @@ class Peer:
                                 chain.chain[-1].data.extend(self.chain.chain[-1].data)
                                 self.chain = chain
                             print('Block has been received from network')
-                            print(self.chain.chain[-1])
+                            print(self.chain.chain[-2])
 
                         print('Connected by', peer_address)
                         if peer_address in self.known_peers:
