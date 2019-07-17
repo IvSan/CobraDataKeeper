@@ -6,7 +6,7 @@ from blockchain.block import Block
 
 
 class Chain:
-    DIFFICULTY = 15
+    DIFFICULTY = 20
     TARGET = 2 ** (256 - DIFFICULTY)
 
     def __init__(self, chain=None, current_data=None):
@@ -15,11 +15,10 @@ class Chain:
 
     @classmethod
     def from_json(cls, json_data):
-        deserialized = json.loads(json_data)
         chain = []
-        for block_data in deserialized['chain']:
+        for block_data in json_data['chain']:
             chain.append(Block.from_json(block_data))
-        return Chain(chain=chain, current_data=deserialized['current_data'])
+        return Chain(chain=chain, current_data=json_data['current_data'])
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
