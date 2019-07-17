@@ -6,26 +6,33 @@ from blockchain.block import Block
 
 
 class Chain:
-    DIFFICULTY = 22
+    DIFFICULTY = 15
     TARGET = 2 ** (256 - DIFFICULTY)
 
-    def __init__(self, json_data=None):
-        if json_data:
-            deserialized = json.loads(json_data)
-            self.chain = []
-            for block_data in deserialized['chain']:
-                self.chain.append(Block(json_data=block_data))
-        else:
-            self.current_data = []
-            genesis = Block(0, 0, 0)
-            self.chain = [genesis]
+    def __init__(self, chain=None, current_data=None):
+        self.chain = chain if chain is not None else [Block()]
+        self.current_data = current_data if current_data is not None else []
+
+    @classmethod
+    def from_json(cls, json_data):
+        deserialized = json.loads(json_data)
+        chain = []
+        for block_data in deserialized['chain']:
+            chain.append(Block.from_json(block_data))
+        return Chain(chain=chain, current_data=deserialized['current_data'])
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+    def store_data(self, data) -> None:
+        self.chain[-1].store_data(data)
 
     def add_block(self) -> None:
         index = len(self.chain)
         previous_block_hash = self.chain[-1].hash()
         proof, tries = self.find_proof()
 
-        block = Block(index, previous_block_hash, proof)
+        block = Block(index=index, previous_hash=previous_block_hash, proof=proof)
         self.chain.append(block)
 
         if not self.validate():
@@ -44,23 +51,17 @@ class Chain:
                 return proof, tries
 
     def validate(self) -> bool:
+        if len(self.chain) < 2:
+            return True
         for i, block in enumerate(self.chain[:1]):
             hash_to_check = sha256()
-            if len(self.chain) < 2:
-                return True
             hash_to_check.update(block.hash().encode() + self.chain[i + 1].proof.encode())
             if int(hash_to_check.hexdigest(), 16) > Chain.TARGET:
                 return False
         return True
-
-    def store_data(self, data) -> None:
-        self.chain[-1].store_data(data)
 
     def __repr__(self) -> str:
         result = ''
         for item in self.chain:
             result += '\n' + str(item)
         return result
-
-    def to_json(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
