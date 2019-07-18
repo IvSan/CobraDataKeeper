@@ -22,4 +22,7 @@ To read the data file just open it as text with utf-8 encoding.
 
 ### Examples
 To store two lines `Alice gives Bob exactly 1.238075135 buck` and `Bob confirms` using file `credits.txt` and securing the record with `5` closed blocks the command should be:  
-`python3 chainer.py -f credits.txt -n 5 "Alice gives Bob exactly 1.238075135 buck" "Bob confirms"`
+`python3 chainer.py -f credits.txt -n 5 "Alice gives Bob exactly 1.238075135 buck" "Bob confirms"`  
+
+Life demo  
+[![asciicast](https://asciinema.org/a/Cjy2euQ3HdkvDoViNOiPUqal4.png)](https://asciinema.org/a/Cjy2euQ3HdkvDoViNOiPUqal4)
