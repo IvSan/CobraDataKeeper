@@ -1,9 +1,6 @@
 import json
 import os
-import random
-import string
 import sys
-import threading
 
 from blockchain.chain import Chain
 
@@ -23,14 +20,12 @@ class Peer:
             print("Invalid chain")
             sys.exit()
 
-        chain_thread = threading.Thread(target=self.keep_chain, args=())
-        chain_thread.start()
+    def store_data(self, data) -> None:
+        self.chain.store_data(data)
 
-    def keep_chain(self):
-        while True:
+    def keep_chain(self, n):
+        for i in range(n):
             self.chain.add_block()
-            self.chain.store_data('rnd data: ' + random.choice(string.ascii_letters))
-
             with open("chain.txt", "w") as file:
                 file.write(self.chain.to_json())
                 file.close()

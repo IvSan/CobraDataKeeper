@@ -20,7 +20,7 @@ class Block:
                      proof=json_data['proof'])
 
     def store_data(self, data) -> None:
-        self.data.append(data)
+        self.data.extend(data)
 
     def hash(self) -> str:
         h = sha256()
