@@ -2,6 +2,8 @@ import json
 import os
 import sys
 
+from tqdm import tqdm
+
 from blockchain.chain import Chain
 
 
@@ -23,11 +25,9 @@ class Peer:
     def store_data(self, data) -> None:
         self.chain.store_data(data)
 
-    def keep_chain(self, n):
-        for i in range(n):
-            self.chain.add_block()
+    def keep_chain(self, n: int, verbose: bool):
+        for _ in tqdm(range(n)):
+            self.chain.add_block(verbose)
             with open("chain.txt", "w") as file:
                 file.write(self.chain.to_json())
                 file.close()
-
-            # add one piece of data and end process

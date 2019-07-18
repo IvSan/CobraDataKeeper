@@ -26,7 +26,7 @@ class Chain:
     def store_data(self, data) -> None:
         self.chain[-1].store_data(data)
 
-    def add_block(self) -> None:
+    def add_block(self, verbose: bool) -> None:
         index = len(self.chain)
         previous_block_hash = self.chain[-1].hash()
         proof, tries = self.find_proof()
@@ -36,8 +36,9 @@ class Chain:
 
         if not self.validate():
             raise Exception("Invalid chain")
-        print(f'Block has been closed with work amount of: {str(tries)}')
-        print(self.chain[-2])
+        if verbose:
+            print(f'Block has been closed with work amount of: {str(tries)}')
+            print(self.chain[-2])
 
     def find_proof(self) -> (str, int):
         tries = 0
