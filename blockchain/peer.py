@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 from tqdm import tqdm
 
@@ -18,9 +17,7 @@ class Peer:
         else:
             self.chain = Chain()
 
-        if not self.chain.validate():
-            print("Invalid chain")
-            sys.exit()
+        self.chain.validate()
 
     def store_data(self, data) -> None:
         self.chain.store_data(data)

@@ -1,4 +1,5 @@
 import json
+import sys
 from hashlib import sha256
 from uuid import uuid4
 
@@ -33,9 +34,7 @@ class Chain:
 
         block = Block(index=index, previous_hash=previous_block_hash, proof=proof)
         self.chain.append(block)
-
-        if not self.validate():
-            raise Exception("Invalid chain")
+        self.validate()
         if verbose:
             print(f'Block has been closed with work amount of: {str(tries)}')
             print(self.chain[-2])
@@ -50,15 +49,15 @@ class Chain:
             if int(hash_to_check.hexdigest(), 16) <= Chain.TARGET:
                 return proof, tries
 
-    def validate(self) -> bool:
+    def validate(self) -> None:
         if len(self.chain) < 2:
-            return True
-        for i, block in enumerate(self.chain[:1]):
+            return
+        for i, block in enumerate(self.chain[:-1]):
             hash_to_check = sha256()
             hash_to_check.update(block.hash().encode() + self.chain[i + 1].proof.encode())
             if int(hash_to_check.hexdigest(), 16) > Chain.TARGET:
-                return False
-        return True
+                print(f'Invalid chain! Mismatch on block with index={block.index}')
+                sys.exit()
 
     def __repr__(self) -> str:
         result = ''
