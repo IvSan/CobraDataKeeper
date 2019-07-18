@@ -7,7 +7,7 @@ All data stored in a single text file next to the script itself. if there is no 
 
 ## How to run  
 
-As first fire `pip install -r requirements.txt`  
+As first step fire `pip install -r requirements.txt`  
 
 To get help `python3 chainer.py -h`  
 
