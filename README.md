@@ -5,8 +5,11 @@
 Software that allows you to store data with proof it will never be changed. Based on Proof-of-Work concept. Blockchain architecture SPA *(single peer application)*.  
 All data stored in a single text file next to the script itself. if there is no one new file will be created automatically. If file exists it will be validated and complemented each script run.  
 
-## How to run
-Get help: `python3 chainer.py -h`
+## How to run  
+
+As first fire `pip install -r requirements.txt`  
+
+To get help `python3 chainer.py -h`  
 
 CLI structure: `python3 chainer.py [-h] [-v] [-n n] [-f filename] [data]`
 
