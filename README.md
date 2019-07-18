@@ -17,6 +17,7 @@ CLI structure: `python3 chainer.py [-h] [-v] [-n n] [-f filename] [data]`
  - `-v, --verbose` - use it to get all service information
  - `-n n, --number n` - number of blocks you want to close *(to mine)* for securing the data, higher the number, harder to change data, more secure, optional, default is 1
  - `-f filename, --file filename` - specify the file to read data from and write data to, optional, default filename is `chain`
+ - `data` - data to store, optional
 
 To read the data file just open it as text with utf-8 encoding.
 
