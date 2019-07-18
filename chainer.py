@@ -1,6 +1,6 @@
 import argparse
 
-from peer import Peer
+from blockchain.peer import Peer
 
 
 def chainer():
@@ -13,8 +13,9 @@ def chainer():
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('data', nargs='*')
-    parser.add_argument('-n', '--number', type=int, default=1)
+    parser.add_argument('data', nargs='*', help='data to store')
+    parser.add_argument('-n', '--number', type=int, metavar='n', default=1,
+                        help='number of blocks to mine for securing the data, default n=1')
     return parser.parse_args()
 
 
