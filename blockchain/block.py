@@ -1,3 +1,4 @@
+import inspect
 from hashlib import sha256
 from time import time
 
@@ -13,11 +14,11 @@ class Block:
 
     @classmethod
     def from_json(cls, json_data):
-        return Block(index=json_data['index'],
-                     close_time=json_data['time'],
-                     data=json_data['data'],
-                     previous_hash=json_data['previous_hash'],
-                     proof=json_data['proof'])
+        return cls(index=json_data['index'],
+                   close_time=json_data['time'],
+                   data=json_data['data'],
+                   previous_hash=json_data['previous_hash'],
+                   proof=json_data['proof'])
 
     def store_data(self, data) -> None:
         self.data.extend(data)
@@ -34,10 +35,14 @@ class Block:
         return h.hexdigest()
 
     def __repr__(self) -> str:
-        return 'Block index: ' + str(self.index) + \
-               '\nBlock date: ' + str(self.time) + \
-               '\nBlock data: [' + ' '.join(str(d) for d in self.data) + ']' + \
-               '\nPrevious block hash: ' + str(self.previous_hash) + \
-               '\nProof: ' + str(self.proof) + \
-               '\nCurrent block hash: ' + str(self.hash()) + \
-               '\n'
+        return inspect.cleandoc('''Block index: {0}
+            Block date: {1}
+            Block data: [{2}]
+            Previous block hash: {3}
+            Proof: {4}
+            Current block hash: {5}'''.format(str(self.index),
+                                              str(self.time),
+                                              ' '.join(str(d) for d in self.data),
+                                              str(self.previous_hash),
+                                              str(self.proof),
+                                              str(self.hash()))) + '\n'
